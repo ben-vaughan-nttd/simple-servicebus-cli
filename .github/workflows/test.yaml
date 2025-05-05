@@ -1,4 +1,4 @@
-name: Lint and Security Check
+name: Test
 
 on:
   pull_request:
