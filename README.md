@@ -16,19 +16,19 @@ This project is a command-line interface (CLI) tool for interacting with Azure S
 
 1. Clone the repository:
 
-   ```
-   git clone https://github.com/yourusername/simple-servicebus-cli.git
+   ```shell
+   git clone https://github.com/ben-vaughan-ntt/simple-servicebus-cli.git
    ```
 
 2. Navigate to the project directory:
 
-   ```
+   ```shell
    cd simple-servicebus-cli
    ```
 
 3. Install the dependencies:
 
-   ```
+   ```shell
    go mod tidy
    ```
 
@@ -36,9 +36,11 @@ This project is a command-line interface (CLI) tool for interacting with Azure S
 
 To run the CLI tool, use the following command:
 
-```
+```shell
 go run cmd/main.go [command]
 ```
+
+You must have the service bus connection string in an environment variable called `AZURE_SERVICEBUS_CONNECTION_STRING`.
 
 ### Commands
 
