@@ -50,9 +50,9 @@ changelog:
       - Merge branch
 
 release:
-  # github:
-  #   owner: '{{ .Env.GITHUB_REPOSITORY_OWNER }}'
-  #   name: '{{ .Env.GITHUB_REPOSITORY }}'
+#   github:
+#       owner: '{{ .Env.GITHUB_REPOSITORY_OWNER }}'
+  #       name: '{{ .Env.GITHUB_REPOSITORY }}'
 
 dockers:
   - image_templates:
@@ -72,12 +72,12 @@ sboms:
   - id: spdx-format
     artifacts: archive
     documents:
-      - "{{ .ProjectName }}_{{ .Version }}_sbom.spdx.json"
+      - "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}_sbom.spdx.json"
     cmd: syft
     args: ["$artifact", "--output", "spdx-json=$document"]
   - id: cyclonedx-format
     artifacts: archive
     documents:
-      - "{{ .ProjectName }}_{{ .Version }}_sbom.cyclonedx.json"
+      - "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}_sbom.cyclonedx.json"
     cmd: syft
     args: ["$artifact", "--output", "cyclonedx-json=$document"]
