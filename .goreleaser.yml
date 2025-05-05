@@ -50,9 +50,9 @@ changelog:
       - Merge branch
 
 release:
-  github:
-    owner: '{{ .Env.GITHUB_REPOSITORY_OWNER }}'
-    name: '{{ .Env.GITHUB_REPOSITORY }}'
+  # github:
+  #   owner: '{{ .Env.GITHUB_REPOSITORY_OWNER }}'
+  #   name: '{{ .Env.GITHUB_REPOSITORY }}'
 
 dockers:
   - image_templates:
