@@ -36,12 +36,15 @@ func newListQueuesCommand() *cobra.Command {
     }
 }
 
-func listQueues(cmd *cobra.Command, args []string) error {
+func listQueues(_ *cobra.Command, args []string) error {
     // Get configuration
     cfg, err := config.LoadConfig()
     if err != nil {
         return fmt.Errorf("failed to load configuration: %w", err)
     }
+
+    // Store arguments for potential future use
+    _ = args
 
     // Create queue manager
     queueManager, err := servicebus.NewQueueManager(cfg.ConnectionString)
@@ -78,17 +81,22 @@ func newPeekMessageCommand() *cobra.Command {
 
     cmd.Flags().StringVarP(&queueName, "queue", "q", "", "Name of the queue to peek messages from")
     cmd.Flags().Int32VarP(&maxMessages, "max", "m", 10, "Maximum number of messages to peek")
-    cmd.MarkFlagRequired("queue")
-
+    if err := cmd.MarkFlagRequired("queue"); err != nil {
+        // Since this is during initialization, panic is appropriate
+        panic(fmt.Sprintf("failed to mark 'queue' flag as required: %v", err))
+    }
     return cmd
 }
 
-func peekMessage(cmd *cobra.Command, args []string) error {
+func peekMessage(_ *cobra.Command, args []string) error {
     // Get configuration
     cfg, err := config.LoadConfig()
     if err != nil {
         return fmt.Errorf("failed to load configuration: %w", err)
     }
+
+    // Store arguments for potential future use
+    _ = args
 
     // Create client
     client, err := servicebus.NewClient(cfg.ConnectionString)

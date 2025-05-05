@@ -1,11 +1,11 @@
 package servicebus
 
 import (
-    "context"
-    "fmt"
-    
-    "github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus"
-    "github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus/admin"
+	"context"
+	"fmt"
+
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus/admin"
 )
 
 // QueueManager manages operations related to Service Bus queues.
@@ -54,7 +54,7 @@ func (qm *QueueManager) ListQueues(ctx context.Context) ([]string, error) {
 }
 
 // GetReceiver creates a receiver for the specified queue.
-func (qm *QueueManager) GetReceiver(ctx context.Context, queueName string) (*azservicebus.Receiver, error) {
+func (qm *QueueManager) GetReceiver(_ context.Context, queueName string) (*azservicebus.Receiver, error) {
     receiver, err := qm.client.NewReceiverForQueue(queueName, nil)
     if err != nil {
         return nil, fmt.Errorf("failed to create receiver for queue %s: %v", queueName, err)
