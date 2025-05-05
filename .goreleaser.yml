@@ -1,5 +1,7 @@
 project_name: simple-servicebus-cli
 
+version: 2
+
 before:
   hooks:
     - go mod tidy
@@ -25,7 +27,7 @@ builds:
     main: .
 
 archives:
-  - format: tar.gz
+  - formats: [ 'tar.gz' ]
     name_template: >-
       {{ .ProjectName }}_
       {{- .Version }}_
@@ -33,7 +35,7 @@ archives:
       {{- .Arch }}
     format_overrides:
       - goos: windows
-        format: zip
+        formats: [ 'zip' ]
 
 checksum:
   name_template: 'checksums.txt'
@@ -58,21 +60,24 @@ dockers:
     - "ghcr.io/{{.Env.GITHUB_REPOSITORY_OWNER}}/{{.ProjectName}}:latest"
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
-    - --build-arg=GOVERSION={{.Env.GOLANG_VERSION}}
     - --label=org.opencontainers.image.created={{.Date}}
     - --label=org.opencontainers.image.title={{.ProjectName}}
     - --label=org.opencontainers.image.revision={{.FullCommit}}
     - --label=org.opencontainers.image.version={{.Version}}
 
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 
 sboms:
-  - artifacts: archive
+  - id: spdx-format
+    artifacts: archive
     documents:
       - "{{ .ProjectName }}_{{ .Version }}_sbom.spdx.json"
+    cmd: syft
+    args: ["$artifact", "--output", "spdx-json=$document"]
+  - id: cyclonedx-format
+    artifacts: archive
+    documents:
       - "{{ .ProjectName }}_{{ .Version }}_sbom.cyclonedx.json"
     cmd: syft
-    args: ["$artifact", "--output", "spdx-json=$document", "--output", "cyclonedx-json=$document"]
-    ids:
-      - default
+    args: ["$artifact", "--output", "cyclonedx-json=$document"]
