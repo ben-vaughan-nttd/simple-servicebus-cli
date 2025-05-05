@@ -1,0 +1,68 @@
+project_name: simple-servicebus-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+      - '386'
+    ignore:
+      - goos: darwin
+        goarch: '386'
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: .
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- .Arch }}
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - Merge pull request
+      - Merge branch
+
+release:
+  github:
+    owner: '{{ .Env.GITHUB_REPOSITORY_OWNER }}'
+    name: '{{ .Env.GITHUB_REPOSITORY }}'
+
+dockers:
+  - image_templates:
+    - "ghcr.io/{{.Env.GITHUB_REPOSITORY_OWNER}}/{{.ProjectName}}:{{ .Version }}"
+    - "ghcr.io/{{.Env.GITHUB_REPOSITORY_OWNER}}/{{.ProjectName}}:latest"
+    dockerfile: Dockerfile.goreleaser
+    build_flag_templates:
+    - --build-arg=GOVERSION={{.Version}}
+    - --label=org.opencontainers.image.created={{.Date}}
+    - --label=org.opencontainers.image.title={{.ProjectName}}
+    - --label=org.opencontainers.image.revision={{.FullCommit}}
+    - --label=org.opencontainers.image.version={{.Version}}
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
