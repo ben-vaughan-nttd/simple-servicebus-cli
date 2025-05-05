@@ -58,7 +58,7 @@ dockers:
     - "ghcr.io/{{.Env.GITHUB_REPOSITORY_OWNER}}/{{.ProjectName}}:latest"
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
-    - --build-arg=GOVERSION={{.Version}}
+    - --build-arg=GOVERSION={{.Env.GOLANG_VERSION}}
     - --label=org.opencontainers.image.created={{.Date}}
     - --label=org.opencontainers.image.title={{.ProjectName}}
     - --label=org.opencontainers.image.revision={{.FullCommit}}
@@ -66,3 +66,13 @@ dockers:
 
 snapshot:
   name_template: "{{ .Tag }}-next"
+
+sboms:
+  - artifacts: archive
+    documents:
+      - "{{ .ProjectName }}_{{ .Version }}_sbom.spdx.json"
+      - "{{ .ProjectName }}_{{ .Version }}_sbom.cyclonedx.json"
+    cmd: syft
+    args: ["$artifact", "--output", "spdx-json=$document", "--output", "cyclonedx-json=$document"]
+    ids:
+      - default
