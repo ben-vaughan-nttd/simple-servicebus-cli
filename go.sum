@@ -4,8 +4,8 @@ github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.8.2 h1:F0gBpfdPLGsw+nsgk6aqq
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.8.2/go.mod h1:SqINnQ9lVVdRlyC8cd1lCI0SdX4n2paeABd2K8ggfnE=
 github.com/Azure/azure-sdk-for-go/sdk/internal v1.10.0 h1:ywEEhmNahHBihViHepv3xPBn1663uRv2t2q/ESv9seY=
 github.com/Azure/azure-sdk-for-go/sdk/internal v1.10.0/go.mod h1:iZDifYGJTIgIIkYRNWPENUnqx6bJ2xnSDFI2tjwZNuY=
-github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus v1.8.1 h1:0yEZ54onxePGR9sQQevfOqcku+/Wx3TC/X4F17x0sUI=
-github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus v1.8.1/go.mod h1:pSvDbbKKKZ/m3yIsZ56I62DJ8OYyjwP4IhIFIu2+5GQ=
+github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus v1.9.0 h1:4qvUx+l3Z5Q2GcGJCVU1AH1cCrZ0/HHqDlYHDrsaHPw=
+github.com/Azure/azure-sdk-for-go/sdk/messaging/azservicebus v1.9.0/go.mod h1:pSvDbbKKKZ/m3yIsZ56I62DJ8OYyjwP4IhIFIu2+5GQ=
 github.com/Azure/go-amqp v1.4.0 h1:Xj3caqi4comOF/L1Uc5iuBxR/pB6KumejC01YQOqOR4=
 github.com/Azure/go-amqp v1.4.0/go.mod h1:vZAogwdrkbyK3Mla8m/CxSc/aKdnTZ4IbPxl51Y5WZE=
 github.com/AzureAD/microsoft-authentication-library-for-go v1.4.2 h1:oygO0locgZJe7PpYPXT5A29ZkwJaPqcva7BVeemZOZs=
